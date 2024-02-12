@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+
+  <title>My Application</title>
+</head>
+
+<body>
+  <main class="container">
+    <nav>
+      <ul>
+        <li>
+          <h1>Message Application</h1>
+        </li>
+      </ul>
+    </nav>
+    <div>
+      <form action="/" method="get">
+        <fieldset role="group">
+          <input style="--pico-border-radius:0.25rem;" name="keyword" id="keyword" type="search"
+            placeholder="Filter by keyword" />
+          <button type="submit">Search</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <a href="/newmessage">New Message</a>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Message</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="m:${messages}">
+          <td th:text="${m.id}" />
+          <td th:text="${m.message}" />
+          <td>
+            <a th:href="@{/editmessage/{id}(id=${m.id})}">Edit</a>
+          </td>
+          <td>
+            <a th:href="@{/deletemessage/{id}(id=${m.id})}">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+
+</html>

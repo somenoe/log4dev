@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+
+  <title>My Application</title>
+</head>
+
+<body>
+  <main class="container">
+    <nav>
+      <ul>
+        <li>
+          <h1>Edit Message</h1>
+        </li>
+      </ul>
+    </nav>
+    <form th:action="@{/updatemessage/{id}(id=${message.id})}" th:object="${message}" method="post">
+      <div>
+        <label>New Message</label>
+        <input type="text" id="message" name="message" placeholder="Enter your new message." />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+</body>
+
+</html>
