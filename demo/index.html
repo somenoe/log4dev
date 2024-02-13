@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <title>Demo Chart.js</title>
+</head>
+
+<body>
+  <main class="container">
+    <h1>บันทึกเวลาทำงาน</h1>
+    <hr />
+    <div class="grid">
+      <div style="margin-bottom: 1rem;">
+        <canvas id="show-chart"></canvas>
+      </div>
+      <div class="overflow-auto">
+        <form onsubmit="return confirm('ยืนยันที่จะบันทึก?')">
+          <fieldset role="group">
+            <input type="text" name="task" placeholder="เพิ่มงานใหม่" />
+            <input type="submit" value="เพิ่ม" />
+          </fieldset>
+        </form>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th scope="col">⌚ เวลา</th>
+              <th scope="col">💪 งาน</th>
+              <th scope="col">✏️</th>
+              <th scope="col">🗑️</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">02:50:38</th>
+              <td>Func A</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">02:42:38</th>
+              <td>พักเบรค</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">02:50:38</th>
+              <td>Func A</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">03:00:38</th>
+              <td>Func B</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">02:47:38</th>
+              <td>พักเที่ยง</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">03:00:38</th>
+              <td>Func B</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">03:00:38</th>
+              <td>Func C</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">02:42:38</th>
+              <td>พักเบรค</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">03:00:38</th>
+              <td>Func C</td>
+              <td>
+                <a href="./edit">แก้</a>
+              </td>
+              <td>
+                <a href="" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <script>
+    const ctx = document.getElementById("show-chart");
+    const chart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Func A", "Func C", "Func B", "พักเบรค", "พักเที่ยง"],
+        datasets: [
+          {
+            label: "My First Dataset",
+            data: [150, 120, 100, 60, 20],
+            hoverOffset: 4,
+            color: "#666",
+            // backgroundColor: ["white", "black", "red"]
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                size: 16,
+              },
+            },
+          },
+        },
+      },
+    });
+  </script>
+</body>
+
+</html>

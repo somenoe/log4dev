@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <title>Demo Chart.js</title>
+</head>
+
+<body>
+  <main class="container">
+    <nav aria-label="breadcrumb">
+      <ul>
+        <li><a href="../">หน้าหลัก</a></li>
+        <li>แก้ไขชื่องาน</li>
+      </ul>
+    </nav>
+    <form onsubmit="return confirm('ยืนยันที่จะแก้ไขชื่องาน?');">
+      <fieldset>
+        <label>
+          ⌚ เวลา
+          <input type="time" value="10:33:39" name="time" readonly disabled />
+        </label>
+        <label>
+          ชื่องาน เก่า
+          <input type="text" name="old_task" value="Func X" readonly disabled />
+        </label>
+        <label>
+          ชื่องาน ใหม่ <span style="color:red">*</span>
+          <input type="text" name="new_task" placeholder="ใส่ชื่องานใหม่ที่นี่" required
+            aria-describedby="required-helper" />
+          <small id="required-helper"> <span style="color:red">*</span> จำเป็นต้องใส่ชื่องานใหม่</small>
+        </label>
+      </fieldset>
+
+      <fieldset class="grid">
+        <input type="reset" value="รีเซ็ท" />
+        <input type="submit" value="ยืนยัน" />
+      </fieldset>
+    </form>
+  </main>
+</body>
+
+</html>
