@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script>
-  </script>
   <title>Demo Chart.js</title>
 </head>
 
@@ -26,9 +25,9 @@
     </div>
     <hr />
     <div class="grid">
-      <!-- <div style="margin-bottom: 1rem;">
+      <div style="margin-bottom: 1rem;">
         <canvas id="show-chart"></canvas>
-      </div> -->
+      </div>
       <div class="overflow-auto">
         <form action="/add" method="post" onsubmit="return confirm('ยืนยันที่จะบันทึก?')">
           <fieldset role="group">
@@ -64,9 +63,40 @@
     </div>
   </main>
   <script>
-    function zeroPad(number) {
+    console.log(document.querySelector("main"));
+    // window.onload(() => {
+    const raw = []
+    document.querySelectorAll("tr").forEach((row) => {
+      const DEFAULT_TASK_NAME = "ไม่ได้ระบุ"
+      let time = 0
+      let task = DEFAULT_TASK_NAME
+      const thisRow = {};
 
-    }
+      const cols = [...row.querySelectorAll("td").values()];
+      for (let i = 0; i < cols.length; i++) {
+        innerText = cols[i].innerText
+        if (i === 2 && innerText !== "") {
+          time = parseInt(innerText);
+          if (time > 0) time = time / 1000
+        }
+        else if (i === 1 && innerText !== "") {
+          task = innerText;
+        }
+      }
+      if (time <= 0 || task == DEFAULT_TASK_NAME) return;
+
+      if (raw.find((i) => i.task === task)) {
+        raw.find((i) => i.task === task).time += time
+      } else {
+        raw.push({ task: task, time: time });
+      }
+    })
+
+    raw.sort(
+      (a, b) =>
+        b.time - a.time
+    )
+
     const duration = document.querySelectorAll(".duration");
     // change innerText from millisecond to hour and minute
     for (let i = 0; i < duration.length; i++) {
@@ -90,6 +120,34 @@
 
       duration[i].innerText = newInnerText
     }
+
+    const ctx = document.getElementById("show-chart");
+    const chart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: raw.map((t) => t.task),
+        datasets: [
+          {
+            label: "My First Dataset",
+            data: raw.map((t) => t.time),
+            hoverOffset: 4,
+            color: "#666",
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                size: 16,
+              },
+            },
+          },
+        },
+      },
+    });
+    // })
   </script>
 </body>
 

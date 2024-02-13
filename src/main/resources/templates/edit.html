@@ -23,6 +23,10 @@
           ⌚ เวลา
           <input th:value="${task.time}" type="text" name="time" readonly />
         </label>
+        <label hidden>
+          ⌛ ระยะเวลา
+          <input th:value="${task.duration}" type="text" name="duration" readonly />
+        </label>
         <label>
           ชื่องาน เก่า
           <input th:value="${task.task}" type="text" name="old_task" readonly disabled />
