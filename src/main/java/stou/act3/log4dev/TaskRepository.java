@@ -5,5 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TaskRepository extends JpaRepository<Task, Integer> {
-  List<Task> findByTaskContainingIgnoreCase(String task);
+  List<Task> findByTaskContainingIgnoreCaseOrderByTimeDesc(String task);
+
+  Task findFirstByOrderByIdDesc();
+
+  List<Task> findByOrderByIdAsc();
 }

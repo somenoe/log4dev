@@ -5,53 +5,92 @@
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 
-  <title>My Application</title>
+  <script>
+  </script>
+  <title>Demo Chart.js</title>
 </head>
 
 <body>
   <main class="container">
-    <nav>
-      <ul>
-        <li>
-          <h1>Message Application</h1>
-        </li>
-      </ul>
-    </nav>
     <div>
+      <h1>บันทึกเวลาทำงาน</h1>
       <form action="/" method="get">
-        <fieldset role="group">
-          <input style="--pico-border-radius:0.25rem;" name="keyword" id="keyword" type="search"
-            placeholder="Filter by keyword" />
-          <button type="submit">Search</button>
+        <fieldset>
+          <fieldset role="group">
+            <input style="--pico-border-radius:0.25rem;" name="keyword" id="keyword" type="search"
+              placeholder="พิมพ์เพื่อกรองข้อมูล" />
+            <button type="submit">ค้นหา</button>
+          </fieldset>
         </fieldset>
       </form>
     </div>
-
-    <a href="/add">New Message</a>
-
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Message</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="t:${tasks}">
-          <td th:text="${t.id}" />
-          <td th:text="${t.task}" />
-          <td>
-            <a th:href="@{/edit/{id}(id=${t.id})}">Edit</a>
-          </td>
-          <td>
-            <a th:href="@{/delete/{id}(id=${t.id})}">Delete</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <hr />
+    <div class="grid">
+      <!-- <div style="margin-bottom: 1rem;">
+        <canvas id="show-chart"></canvas>
+      </div> -->
+      <div class="overflow-auto">
+        <form action="/add" method="post" onsubmit="return confirm('ยืนยันที่จะบันทึก?')">
+          <fieldset role="group">
+            <input type="submit" value="เพิ่ม" />
+            <input type="text" name="task" placeholder="พิมพ์ชื่องานใหม่" />
+          </fieldset>
+        </form>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th scope="col">⌚บันทึก</th>
+              <th scope="col">💪ชื่องาน</th>
+              <th scope="col">⌛ใช้เวลา</th>
+              <th scope="col">✏️</th>
+              <th scope="col">🗑️</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row" th:each="t:${tasks}">
+              <td th:text="${t.time}" />
+              <td th:text="${t.task}" />
+              <td th:text="${t.duration}" class="duration" />
+              <td>
+                <a th:href="@{/edit/{id}(id=${t.id})}">แก้</a>
+              </td>
+              <td>
+                <a th:href="@{/delete/{id}(id=${t.id})}" onclick="return confirm('ยืนยันที่จะลบข้อมูล?')">ลบ</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </main>
+  <script>
+    function zeroPad(number) {
+
+    }
+    const duration = document.querySelectorAll(".duration");
+    // change innerText from millisecond to hour and minute
+    for (let i = 0; i < duration.length; i++) {
+      const d = duration[i].innerText;
+
+      const h = Math.floor(d / 3600000);
+      const m = Math.floor((d % 3600000) / 60000);
+      const s = Math.floor((d % 60000) / 1000);
+
+      let newInnerText = ""
+
+      if (h > 0) {
+        newInnerText += h.toString().padStart("2", "0") + "h ";
+      }
+      if (m > 0) {
+        newInnerText += m.toString().padStart("2", "0") + "m ";
+      }
+      if (s > 0) {
+        newInnerText += s.toString().padStart("2", "0") + "s ";
+      }
+
+      duration[i].innerText = newInnerText
+    }
+  </script>
 </body>
 
 </html>

@@ -8,6 +8,7 @@ public class Task {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String time;
+  private long duration;
   private String task;
 
   public int getId() {
@@ -26,6 +27,14 @@ public class Task {
     this.time = time;
   }
 
+  public long getDuration() {
+    return duration;
+  }
+
+  public void setDuration(long duration) {
+    this.duration = duration;
+  }
+
   public String getTask() {
     return task;
   }
@@ -36,6 +45,6 @@ public class Task {
 
   @Override
   public String toString() {
-    return "Task [id=" + id + ", time=" + time + ", task=" + task + "]";
+    return "{duration:\"" + duration + "\", task:\"" + task + "\"}";
   }
 }
