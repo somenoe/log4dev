@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -58,14 +57,17 @@ public class TaskService {
 
   }
 
+  @SuppressWarnings("null")
   public Optional<Task> findTaskById(Integer id) {
     return taskRepository.findById(id);
   }
 
+  @SuppressWarnings("null")
   public void deleteTask(Task task) {
     taskRepository.delete(task);
   }
 
+  @SuppressWarnings("null")
   public void saveTask(Task task) {
     taskRepository.save(task);
   }
