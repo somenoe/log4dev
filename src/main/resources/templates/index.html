@@ -27,7 +27,7 @@
       </form>
     </div>
 
-    <a href="/newmessage">New Message</a>
+    <a href="/add">New Message</a>
 
     <table>
       <thead>
@@ -39,14 +39,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="m:${messages}">
-          <td th:text="${m.id}" />
-          <td th:text="${m.message}" />
+        <tr th:each="t:${tasks}">
+          <td th:text="${t.id}" />
+          <td th:text="${t.task}" />
           <td>
-            <a th:href="@{/editmessage/{id}(id=${m.id})}">Edit</a>
+            <a th:href="@{/edit/{id}(id=${t.id})}">Edit</a>
           </td>
           <td>
-            <a th:href="@{/deletemessage/{id}(id=${m.id})}">Delete</a>
+            <a th:href="@{/delete/{id}(id=${t.id})}">Delete</a>
           </td>
         </tr>
       </tbody>

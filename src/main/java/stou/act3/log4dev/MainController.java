@@ -14,45 +14,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MainController {
   @Autowired
-  private MessageService messageService;
+  private TaskService taskService;
 
   @GetMapping("/")
   public String getIndex(Model model, @Param("keyword") String keyword) {
-    List<Message> listMessages = messageService.listAll(keyword);
-    model.addAttribute("messages", listMessages);
+    List<Task> tasks = taskService.listAll(keyword);
+    model.addAttribute("tasks", tasks);
     return "index";
   }
 
-  @GetMapping("/newmessage")
-  public String showMessageform() {
-    return "message/add";
+  @GetMapping("/add")
+  public String showCreatePage() {
+    return "form/add";
   }
 
-  @GetMapping("/editmessage/{id}")
-  public String showUpdateMessageForm(@PathVariable("id") Integer id, Model model) {
-    Message foundMessage = messageService.findMessageById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-    model.addAttribute("message", foundMessage);
-    return "message/edit";
+  @GetMapping("/edit/{id}")
+  public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    Task foundTask = taskService.findTaskById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
+    model.addAttribute("task", foundTask);
+    return "form/edit";
   }
 
-  @PostMapping("/addmessage")
-  public String postMessageForm(@ModelAttribute("messages") Message message) {
-    messageService.addMessage(message);
+  @PostMapping("/add")
+  public String postAddForm(@ModelAttribute("tasks") Task task) {
+    taskService.addTask(task);
     return "redirect:/";
   }
 
-  @PostMapping("/updatemessage/{id}")
-  public String updateMessage(@PathVariable("id") Integer id, @ModelAttribute("messages") Message message) {
-    messageService.save(message);
+  @PostMapping("/update/{id}")
+  public String postUpdateForm(@PathVariable("id") Integer id, @ModelAttribute("tasks") Task task) {
+    taskService.saveTask(task);
     return "redirect:/";
   }
 
-  @GetMapping("/deletemessage/{id}")
+  @GetMapping("/delete/{id}")
   public String deleteMessage(@PathVariable("id") Integer id, Model model) {
-    Message foundMessage = messageService.findMessageById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-    messageService.deleteMessage(foundMessage);
+    Task foundTask = taskService.findTaskById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
+    taskService.deleteTask(foundTask);
     return "redirect:/";
   }
 

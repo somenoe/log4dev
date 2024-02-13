@@ -13,16 +13,20 @@
     <nav>
       <ul>
         <li>
-          <h1>Edit Message</h1>
+          <h1>Add New Task</h1>
         </li>
       </ul>
     </nav>
-    <form th:action="@{/updatemessage/{id}(id=${message.id})}" th:object="${message}" method="post">
+    <form action="/add" method="post">
       <div>
-        <label>New Message</label>
-        <input type="text" id="message" name="message" placeholder="Enter your new message." />
+        <label>Task
+          <input type="text" name="task" placeholder="Add new task." />
+        </label>
       </div>
-      <button type="submit">Submit</button>
+      <div class="grid">
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+      </div>
     </form>
   </main>
 </body>
